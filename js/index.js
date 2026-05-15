@@ -1,2 +1,2 @@
-import "./ptacek.js"
+console.log("metrix loaded")
 
