@@ -1,0 +1,5 @@
+.metrix-instrument-test {
+    > div {
+        color: red;
+    }
+}
