@@ -1,2 +1,3 @@
-console.log("metrix loaded")
+import "./metrix.js"
 
+console.log("metrix loaded")
