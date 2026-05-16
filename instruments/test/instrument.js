@@ -1,16 +1,16 @@
-function initialize(element)
+function initialize(instrument)
 {
     console.log("initialize")
-    return {element: element}
 }
 
-function setValue(value, instrument)
+function setValue(instrument, value)
 {
-    console.log("setValue")
+    console.log("setValue", value)
 }
 
 function destroy(instrument)
 {
+    console.log("setValue")
 
 }
 

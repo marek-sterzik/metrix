@@ -23,6 +23,10 @@ module.exports = {
             require.resolve('@babel/preset-typescript')
           ]
         }
+      },
+      {
+        test: /\.(html|css)$/,
+        type: "asset/source"
       }
     ]
   }
