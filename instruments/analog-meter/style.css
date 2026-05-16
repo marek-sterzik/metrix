@@ -1,11 +1,12 @@
 .metrix-instrument-analog-meter {
-    > div {
-        width: 20em;
-        height: 20em;
-        background-color: #eee;
-        background-image: url("assets/analog-meter.svg");
-        background-position: center center;
-        background-size: contain;
-        background-repeat: no-repeat;
+    & > object {
+        width: 100%;
     }
+
+    width: 20em;
+    height: 20em;
+    background-color: #eee;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }

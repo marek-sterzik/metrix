@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        type: "asset/source"
+        loader: 'html-loader',
       },
       {
         test: /\.css$/,
