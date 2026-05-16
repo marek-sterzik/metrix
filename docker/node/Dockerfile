@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:18
 
 ARG API_WWW_DATA_UID=orig
 ARG API_WWW_DATA_GID=orig
