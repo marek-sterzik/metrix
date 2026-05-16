@@ -25,9 +25,17 @@ module.exports = {
         }
       },
       {
-        test: /\.(html|css)$/,
+        test: /\.html$/,
         type: "asset/source"
-      }
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+      },
+      {
+        test: /\.(png|jpg|svg)$/,
+        type: "asset/resource"
+      },
     ]
   }
 };
