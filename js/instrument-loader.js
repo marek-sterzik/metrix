@@ -36,7 +36,7 @@ const loadInstrumentClassNoError = async (id) => {
     try {
         return await loadInstrumentClass(id)
     } catch (e) {
-        console.error(`cannot load instrument ${id}`, e)
+        console.error(`cannot load instrument ${id}:`, e)
         return null
     }
 }

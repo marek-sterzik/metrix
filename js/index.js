@@ -1,7 +1,7 @@
-import metrixUpdate from "./metrix.js"
+import metrix from "./metrix.js"
 import $ from "jquery"
 
 $(() => {
-    metrixUpdate().then(() => console.log("metrix loaded"))
+    metrix.update().then(() => console.log("metrix loaded"))
 })
 

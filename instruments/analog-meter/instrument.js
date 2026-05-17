@@ -1,17 +1,19 @@
+const w = 20
+
 function initialize(instrument)
 {
-    console.log("initialize")
+    instrument.setWidth(w + "em").setHeight((w/1.13) + "em")
+    console.log("analog-meter initialize")
 }
 
 function setValue(instrument, value)
 {
-    console.log("setValue", value)
+    console.log("analog-meter setValue", value)
 }
 
 function destroy(instrument)
 {
-    console.log("setValue")
-
+    console.log("analog-meter setValue")
 }
 
 export {initialize, setValue, destroy}
