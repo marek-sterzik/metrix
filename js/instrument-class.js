@@ -3,23 +3,31 @@
  */
 
 import installCss from "./css-installer.js"
-import setupElement from "./setup-element.js"
+import {setupElement, destroyElement} from "./setup-element.js"
 import Instrument from "./instrument.js"
 
+const getModuleExport = (module, name, id) => {
+    if (module === null) {
+        throw `instrument @${id} does not exist, does not contain instrument.js file or instrument.js file is invalid`
+    }
+    return module[name]
+}
+
 const getFunction = (module, name, mandatory, id) => {
-    const fn = module[name]
+    const fn = getModuleExport(module, name, id)
     if (typeof fn === 'function') {
         return fn
     }
     if (fn === undefined) {
         if (mandatory) {
-            throw `${name} not defined in instrument ${id}`
+            throw `${name} not defined in instrument @${id}`
         }
         return null
     }
-    throw `named export ${name} of instrument ${id} expected to be a function, but is not`
+    throw `named export ${name} of instrument @${id} expected to be a function, but is not`
 }
 
+const cssData = new WeakMap()
 
 class InstrumentClass
 {
@@ -27,14 +35,15 @@ class InstrumentClass
     {
         this.id = id
         this.html = html
-        this.css = css
+        cssData.set(this, css)
 
         this.functions = {
             initialize: getFunction(code, "initialize", true, id),
             setValue: getFunction(code, "setValue", true, id),
             destroy: getFunction(code, "destroy", false, id),
         }
-        this.code = code
+
+        Object.freeze(this)
     }
 
     createInstrument(element, configuration = {})
@@ -44,9 +53,10 @@ class InstrumentClass
 
     installCss()
     {
-        if (this.css !== null) {
-            installCss(this.css)
-            this.css = null
+        const css = cssData.get(this)
+        if (css) {
+            installCss(css)
+            cssData.delete(this)
         }
     }
 
@@ -60,9 +70,15 @@ class InstrumentClass
 
     initialize(instrument)
     {
-        setupElement(instrument.element, this.id, (this.html !== null) ? this.html : "")
         this.installCss()
+        setupElement(instrument.element, this.id, (this.html !== null) ? this.html : "")
         return this.callFunction("initialize", instrument)
+    }
+
+    destroy(instrument)
+    {
+        this.callFunction("destroy", instrument)
+        destroyElement(instrument.element, this.id)
     }
 
     setValue(instrument, value)

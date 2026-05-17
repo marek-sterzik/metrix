@@ -1,10 +1,13 @@
 .metrix-instrument-analog-meter {
-    & > object {
+    & > div {
+        background-color: #8888;
+        object-fit: fill;
+    }
+    &  object {
+        /*display: none;*/
         width: 100%;
     }
 
-    width: 20em;
-    height: 20em;
     background-color: #eee;
     background-position: center center;
     background-size: contain;
