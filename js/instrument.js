@@ -12,6 +12,7 @@ class Instrument
         this.configuration = configuration
         this.data = {}
         Object.freeze(this)
+        this.checkConfig(this.configuration)
     }
 
     initialize()
@@ -24,6 +25,29 @@ class Instrument
     {
         this.instrumentClass.destroy(this)
         this.setWidth(null).setHeight(null)
+    }
+
+    supportsReconfiguration()
+    {
+        return this.instrumentClass.supportsReconfiguration()
+    }
+
+    updateConfig(newConfig)
+    {
+        if (!this.supportsReconfiguration()) {
+            throw "Cannot reconfigure instrument"
+        }
+        this.checkConfig(newConfig)
+        const oldConfig = Object.assign({}, this.configuration)
+        Object.keys(this.configuration).forEach(key => delete this.configuration[key]);
+        Object.assign(this.configuration, newConfig)
+        
+        this.instrumentClass.updateConfig(instrument, oldConfig)
+
+    }
+
+    checkConfig(config)
+    {
     }
 
     setValue(value)

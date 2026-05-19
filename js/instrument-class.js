@@ -41,6 +41,7 @@ class InstrumentClass
             initialize: getFunction(code, "initialize", true, id),
             setValue: getFunction(code, "setValue", true, id),
             destroy: getFunction(code, "destroy", false, id),
+            updateConfig: getFunction(code, "updateConfig", false, id),
         }
 
         Object.freeze(this)
@@ -77,8 +78,21 @@ class InstrumentClass
 
     destroy(instrument)
     {
-        this.callFunction("destroy", instrument)
+        try {
+            this.callFunction("destroy", instrument)
+        } catch (e) {
+        }
         destroyElement(instrument.element, this.id)
+    }
+
+    supportsReconfiguration()
+    {
+        return this.functions["updateConfig"] !== null
+    }
+
+    updateConfig(instrument, oldConfig)
+    {
+        return this.callFunction("updateConfig", instrument, oldConfig)
     }
 
     setValue(instrument, value)

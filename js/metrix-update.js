@@ -4,12 +4,9 @@
  */
 import $ from "jquery"
 import loadInstrumentClass from "./instrument-loader.js"
-
+import collectInstrumentConfig from "./config-collector.js"
 const metrixInstrumentSelector = "div[data-metrix-instrument]"
-
-const collectInstrumentConfig = (element) => {
-    return {}
-}
+import equals from "./equals.js"
 
 var error = null
 var errorLoaded = false
@@ -31,22 +28,49 @@ const loadInstrumentClasses = async (classes) => {
     return ret
 }
 
-const installInstrument = async (instrumentClass, element, classId) => {
+const replaceInstrument = (element, instrumentClass, instrumentConfig) => {
+    const existingInstrument = element.data("@metrix-instrument")
+    if (existingInstrument) {
+        if (!equals(existingInstrument.configuration, instrumentConfig)) {
+            if (existingInstrument.instrumentClass === instrumentClass && existingInstrument.supportsReconfiguration()) {
+                existingInstrument.updateConfig(instrumentConfig)
+                instrumentClass = null
+            } else {
+                existingInstrument.destroy()
+            }
+        } else {
+            instrumentClass = null
+        }
+    }
+    if (instrumentClass !== null) {
+        const instrument = instrumentClass.createInstrument(element, instrumentConfig)
+        element.data("@metrix-instrument", instrument)
+        instrument.initialize()
+    }
+}
+
+const updateInstrument = async (instrumentClass, element, classId) => {
+    var retry = true
+    var instrumentConfig
     try {
-        var instrumentConfig
         if (instrumentClass !== null) {
             instrumentConfig = collectInstrumentConfig(element)
         } else {
+            retry = false
             instrumentClass = await loadErrorClass()
-            instrumentConfig = {"message": `instrument class "${classId}" cannot be loaded`}
+            instrumentConfig = {"message": `instrument @${classId} cannot be loaded`}
         }
-        if (instrumentClass !== null) {
-            const instrument = instrumentClass.createInstrument(element, instrumentConfig)
-            element.data("@metrix-instrument", instrument)
-            instrument.initialize()
-        }
+        replaceInstrument(element, instrumentClass, instrumentConfig)
     } catch (e) {
-        console.error(e)
+        console.error("cannot load instrument:", e)
+        if (retry) {
+            instrumentClass = await loadErrorClass()
+            instrumentConfig = {"message": `${e}`}
+            try {
+                replaceInstrument(element, instrumentClass, instrumentConfig)
+            } catch (e) {
+            }
+        }
     }
 }
 
@@ -60,13 +84,11 @@ const metrixUpdate = async (element = undefined) => {
     const elementsToUpdate = {}
     elements.each(function () {
         const element = $(this)
-        if (!element.data("@metrix-instrument")) {
-            const instrumentClass = element.attr("data-metrix-instrument")
-            if (!(instrumentClass in elementsToUpdate)) {
-                elementsToUpdate[instrumentClass] = []
-            }
-            elementsToUpdate[instrumentClass].push(element)
+        const instrumentClass = element.attr("data-metrix-instrument")
+        if (!(instrumentClass in elementsToUpdate)) {
+            elementsToUpdate[instrumentClass] = []
         }
+        elementsToUpdate[instrumentClass].push(element)
     })
 
     
@@ -75,7 +97,7 @@ const metrixUpdate = async (element = undefined) => {
     for (var cls in elementsToUpdate) {
         const instrumentClass = classes[cls]
         for (var element of elementsToUpdate[cls]) {
-            await installInstrument(instrumentClass, element, cls)
+            await updateInstrument(instrumentClass, element, cls)
         }
     }
 }

@@ -1,7 +1,3 @@
-import metrix from "./metrix.js"
-import $ from "jquery"
+import Metrix from "./metrix.js"
 
-$(() => {
-    metrix.update().then(() => console.log("metrix loaded"))
-})
-
+export default Metrix

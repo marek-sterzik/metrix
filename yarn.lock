@@ -1604,6 +1604,11 @@ json5@^2.1.2, json5@^2.2.3:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
+jsonic@^2.28.0:
+  version "2.28.0"
+  resolved "https://registry.yarnpkg.com/jsonic/-/jsonic-2.28.0.tgz#6d678fe264c8d6355abaff6146908585a60c5281"
+  integrity sha512-lo+Yo4ShvJot3A3G6kZOlphRx+GfhR4uK3/O0u9Wg12fggOuvK7TxtteoRtBGeGaqnbHqEHqkj3Uft8obfvP+g==
+
 kind-of@^6.0.2:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"

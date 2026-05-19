@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Metrix{% endblock %}</title>
-        <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ asset('js/metrix.js') }}"></script>
+        <script>Metrix.update()</script>
     </head>
     <body>
         {% block body %}{% endblock %}

@@ -5,7 +5,10 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   output: {
     path: path.resolve(__dirname, 'public/js'),
-    filename: 'main.js'
+    filename: 'metrix.js',
+    libraryExport: "default",
+    libraryTarget: "var",
+    library: "Metrix"
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
