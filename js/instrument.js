@@ -1,6 +1,7 @@
 /*
  * This module defines the class representing one single instrument instance.
  */
+
 import createSetterGetter from "./sg.js"
 
 class Instrument
@@ -48,6 +49,7 @@ class Instrument
 
     checkConfig(config)
     {
+        this.instrumentClass.checkConfig(config)
     }
 
     setValue(value)

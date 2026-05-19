@@ -62,7 +62,7 @@ const updateInstrument = async (instrumentClass, element, classId) => {
         }
         replaceInstrument(element, instrumentClass, instrumentConfig)
     } catch (e) {
-        console.error("cannot load instrument:", e)
+        console.error(`cannot load instrument ${classId}:`, e)
         if (retry) {
             instrumentClass = await loadErrorClass()
             instrumentConfig = {"message": `${e}`}

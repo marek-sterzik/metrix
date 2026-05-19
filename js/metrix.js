@@ -1,6 +1,7 @@
 /*
  * This is the main metrix code. It provides the metrix instance as a default export.
  */
+
 import metrixUpdate from "./metrix-update.js"
 import $ from "jquery"
 

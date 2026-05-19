@@ -7,4 +7,14 @@ function setValue(instrument, value)
 {
 }
 
-export {initialize, setValue}
+const applyDefaultConfigSchema = false
+
+const configSchema = {
+    type: "object",
+    properties: {
+        "message": {type: "string"},
+    },
+    required: ["message"]
+}
+
+export {initialize, setValue, applyDefaultConfigSchema, configSchema}

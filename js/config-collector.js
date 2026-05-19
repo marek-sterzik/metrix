@@ -1,3 +1,7 @@
+/*
+ * This module collects configuration for a particular module from html. It uses jsonic format.
+ */
+
 import { Jsonic } from 'jsonic'
 
 const configFrom = (element, attr, required) => {

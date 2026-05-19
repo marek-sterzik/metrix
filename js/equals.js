@@ -1,3 +1,7 @@
+/*
+ * This module defines a deep equal function suitable for comparing JSON serializable data structures.
+ */
+
 const isPrimitive = obj => (obj !== Object(obj))
 
 const isArray = obj => (obj instanceof Array)
