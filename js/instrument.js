@@ -3,6 +3,7 @@
  */
 
 import createSetterGetter from "./sg.js"
+import dataSourceDispatcher from "./data-source-dispatcher.js"
 
 class Instrument
 {
@@ -14,6 +15,7 @@ class Instrument
         this.data = {}
         Object.freeze(this)
         this.checkConfig(this.configuration)
+        this.registerDataSource()
     }
 
     initialize()
@@ -24,8 +26,41 @@ class Instrument
 
     destroy()
     {
+        this.unregisterDataSource()
         this.instrumentClass.destroy(this)
         this.setWidth(null).setHeight(null)
+    }
+
+    isDataSourceConfigured()
+    {
+        try {
+            ["source", "id"].forEach(key =>{
+                if (!(key in this.configuration)) {
+                    throw "missing key" 
+                }
+                if (typeof this.configuration[key] !== "string") {
+                    throw "not a string"
+                }
+            })
+            return true
+        } catch (e) {
+            return false
+        }
+    }
+
+    registerDataSource()
+    {
+        if (this.isDataSourceConfigured()) {
+            dataSourceDispatcher.registerInstrument(this, this.configuration['source'], this.configuration['id'])
+        }
+    }
+
+    unregisterDataSource()
+    {
+        if (this.isDataSourceConfigured()) {
+            dataSourceDispatcher.unregisterInstrument(this)
+            
+        }
     }
 
     supportsReconfiguration()
@@ -39,12 +74,12 @@ class Instrument
             throw "Cannot reconfigure instrument"
         }
         this.checkConfig(newConfig)
+        this.unregisterDataSource()
         const oldConfig = Object.assign({}, this.configuration)
         Object.keys(this.configuration).forEach(key => delete this.configuration[key]);
         Object.assign(this.configuration, newConfig)
-        
         this.instrumentClass.updateConfig(instrument, oldConfig)
-
+        this.registerDataSource()
     }
 
     checkConfig(config)

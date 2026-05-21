@@ -1,17 +1,14 @@
 function initialize(instrument)
 {
-    console.log("initialize")
 }
 
 function setValue(instrument, value)
 {
-    console.log("setValue", value)
+    instrument.element.find("span.value").text(value)
 }
 
 function destroy(instrument)
 {
-    console.log("setValue")
-
 }
 
 export {initialize, setValue, destroy}
