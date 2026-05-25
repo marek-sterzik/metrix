@@ -1,3 +1,7 @@
+//import svg from "../../js/metrix-lib/svg.js"
+import svg from "@metrix/svg.js"
+
+console.log("svg", svg)
 const w = 20
 
 function initialize(instrument)

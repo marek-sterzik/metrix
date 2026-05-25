@@ -1,6 +1,12 @@
-const path = require('path');
+import path from 'path'
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+    
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
-module.exports = {
+export default {
   entry: path.resolve(__dirname, 'js/index.js'),
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   output: {
@@ -11,7 +17,10 @@ module.exports = {
     library: "Metrix"
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+        "@metrix": path.resolve(__dirname, 'js/metrix-lib')
+    }
   },
   module: {
     rules: [
@@ -41,7 +50,8 @@ module.exports = {
       },
     ]
   }
-};
+}
+
 
 //workarround of a webpack bug not allowing to exit webpack regularly
 process.once('SIGINT', () => {

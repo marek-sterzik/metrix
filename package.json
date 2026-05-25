@@ -9,12 +9,13 @@
     "jquery": "^3.6.0",
     "jsonic": "^2.28.0",
     "svg.js": "^2.7.1",
-    "webpack": "^5.57.1",
+    "webpack": "^5.107.2",
     "webpack-cli": "^4.8.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.29.0",
     "css-loader": "^7.1.4",
     "html-loader": "^5.1.0"
-  }
+  },
+  "type": "module"
 }
