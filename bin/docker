@@ -90,15 +90,20 @@ parse_container_name() {
 }
 
 parse_user_name() {
+    local user
     if echo "$1" | grep -q ':'; then
-        echo "$1" | cut -d: -f 2
+        user="`echo "$1" | cut -d: -f 2`"
     else
         if [ "$1" = "db" ]; then
-            echo "mysql"
+            user="mysql"
         else
-            echo "www-data"
+            user="www-data"
         fi
     fi
+    if [ -z "$user" ]; then
+        user="`id -u`:`id -g`"
+    fi
+    echo "$user"
 }
 
 parse_operation() {
