@@ -4,6 +4,7 @@
 
 import createSetterGetter from "./sg.js"
 import dataSourceDispatcher from "./data-source-dispatcher.js"
+import Message from "@metrix/message.js"
 
 class Instrument
 {
@@ -16,6 +17,24 @@ class Instrument
         Object.freeze(this)
         this.checkConfig(this.configuration)
         this.registerDataSource()
+    }
+
+    listen(msgCategory, listener)
+    {
+        dataSourceDispatcher.registerInstrumentConsumer(this, msgCategory, listener)
+    }
+
+    send(msgType, topic, payload = null)
+    {
+        dataSourceDispatcher.dispatchFromInstrument(this, new Message(msgType, topic, payload))
+    }
+
+    pushValue(value)
+    {
+        const topic = this.config("topic")
+        if (topic !== null) {
+            this.send("broadcast", topic, value)
+        }
     }
 
     initialize()
