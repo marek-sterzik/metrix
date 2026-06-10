@@ -1,12 +1,9 @@
 //import svg from "../../js/metrix-lib/svg.js"
 import svg from "@metrix/svg.js"
 
-console.log("svg", svg)
-const w = 20
-
 function initialize(instrument)
 {
-    instrument.setWidth(w + "em").setHeight((w/1.13) + "em")
+    instrument.setAspectRatio(1.13)
     console.log("analog-meter initialize")
 }
 

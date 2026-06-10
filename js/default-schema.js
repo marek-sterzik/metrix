@@ -3,6 +3,8 @@
  * const applyDefaultConfigSchema = false in the instrument.js file
  */
 
+const sizePattern = "^-?[0-9]*\\.?[0-9]+\s*(cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax|%)$"
+
 const defaultSchema = {
     type: "object",
     properties: {
@@ -12,6 +14,14 @@ const defaultSchema = {
         "source": {
             "type": ["string", "null"]
         },
+        "width": {
+            "type": "string",
+            "pattern": sizePattern,
+        },
+        "height": {
+            "type": "string",
+            "pattern": sizePattern,
+        }
     },
 }
 

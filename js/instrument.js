@@ -6,6 +6,17 @@ import createSetterGetter from "./sg.js"
 import dataSourceDispatcher from "./data-source-dispatcher.js"
 import Message from "@metrix/message.js"
 
+const transformSize = (size, aspectRatio, directionToHeight) => {
+    const match = size.match(/^(-?[0-9]*\.?[0-9]+)\s*(cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax)$/)
+    if (!match) {
+        return null
+    }
+    const value = parseFloat(match[1])
+    const unit = match[2]
+    const convertedValue = directionToHeight ? value/aspectRatio : value*aspectRatio
+    return `${convertedValue}${unit}`
+}
+
 class Instrument
 {
     constructor(instrumentClass, element, configuration)
@@ -13,10 +24,12 @@ class Instrument
         this.instrumentClass = instrumentClass
         this.element = element
         this.configuration = configuration
+        this.priv = {"aspectRatio": null, "calculatedSize": null}
         this.data = {}
         Object.freeze(this)
         this.checkConfig(this.configuration)
         this.registerDataSource()
+        this.updateAspectRatio()
     }
 
     listen(msgCategory, listener)
@@ -37,6 +50,52 @@ class Instrument
         }
     }
 
+    recalcSize()
+    {
+        if (this.priv.calculatedSize === "width") {
+            const width = this.element.height() * this.priv.aspectRatio
+            this.element.width(width)
+        } else if (this.priv.calculatedSize == "height") {
+            const height = this.element.width() / this.priv.aspectRatio
+            this.element.height(height)
+        }
+    }
+
+    updateAspectRatio()
+    {
+        const width = this.config("width")
+        const height = this.config("height")
+        this.element.css("overflow", "hidden")
+        if (this.priv.aspectRatio === null) {
+            this.element.css("width", (width !== null) ? width : "")
+            this.element.css("height", (height !== null) ? height : "")
+            this.priv.calculatedSize = null
+        } else {
+            if (width !== null) {
+                const changedHeight = transformSize(width, this.priv.aspectRatio, true)
+                this.element.css("width", width)
+                this.element.css("height", (changedHeight !== null) ? changedHeight : "")
+                this.priv.calculatedSize = (changedHeight !== null) ? null : "height"
+            } else if (height !== null) {
+                const changedWidth = transformSize(height, this.priv.aspectRatio, false)
+                this.element.css("width", (changedWidth !== null) ? changedWidth : "")
+                this.element.css("height", height)
+                this.priv.calculatedSize = (changedWidth !== null) ? null : "width"
+            } else {
+                this.element.css("width", "")
+                this.element.css("height", "")
+                this.priv.calculatedSize = "height"
+            }
+        }
+        this.recalcSize()
+    }
+
+    setAspectRatio(aspectRatio)
+    {
+        this.priv.aspectRatio = aspectRatio
+        this.updateAspectRatio()
+    }
+
     initialize()
     {
         this.instrumentClass.initialize(this)
@@ -47,7 +106,6 @@ class Instrument
     {
         this.unregisterDataSource()
         this.instrumentClass.destroy(this)
-        this.setWidth(null).setHeight(null)
     }
 
     isDataSourceConfigured()
@@ -97,18 +155,6 @@ class Instrument
     setValue(value)
     {
         this.instrumentClass.setValue(this, value)
-        return this
-    }
-
-    setWidth(width)
-    {
-        this.element.css("width", (width !== null && width !== undefined) ? width : '')
-        return this
-    }
-
-    setHeight(height)
-    {
-        this.element.css("height", (height !== null && height !== undefined) ? height : '')
         return this
     }
 

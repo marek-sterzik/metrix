@@ -94,4 +94,13 @@ const metrixUpdate = async (element = undefined) => {
     }
 }
 
+$(window).resize(() => {
+    $(metrixInstrumentSelector).each(function (){
+        const instrument = $(this).data("@metrix-instrument")
+        if (instrument) {
+            instrument.recalcSize()
+        }
+    })
+})
+
 export default metrixUpdate
