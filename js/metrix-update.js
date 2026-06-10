@@ -5,19 +5,10 @@
 import $ from "jquery"
 import loadInstrumentClass from "./instrument-loader.js"
 import collectInstrumentConfig from "./config-collector.js"
-const metrixInstrumentSelector = "div[data-metrix-instrument]"
+
+const metrixInstrumentSelector = "div[data-metrix-config]"
+
 import equals from "./equals.js"
-
-var error = null
-var errorLoaded = false
-
-const loadErrorClass = async () => {
-    if (!errorLoaded) {
-        error = await loadInstrumentClass("error")
-        errorLoaded = true
-    }
-    return error
-}
 
 const loadInstrumentClasses = async (classes) => {
     const elements = await Promise.all(classes.map((cls) => loadInstrumentClass(cls)))
@@ -49,27 +40,20 @@ const replaceInstrument = (element, instrumentClass, instrumentConfig) => {
     }
 }
 
-const updateInstrument = async (instrumentClass, element, classId) => {
-    var retry = true
-    var instrumentConfig
+const updateInstrument = (element, instrumentClass, instrumentConfig, errorClass) => {
+    const instrumentClassName = instrumentConfig.instrument
     try {
-        if (instrumentClass !== null) {
-            instrumentConfig = collectInstrumentConfig(element)
-        } else {
-            retry = false
-            instrumentClass = await loadErrorClass()
-            instrumentConfig = {"message": `instrument @${classId} cannot be loaded`}
+        if (instrumentClass === null) {
+            throw `cannot load instrument class ${instrumentClassName}`
         }
         replaceInstrument(element, instrumentClass, instrumentConfig)
     } catch (e) {
-        console.error(`cannot load instrument ${classId}:`, e)
-        if (retry) {
-            instrumentClass = await loadErrorClass()
-            instrumentConfig = {"message": `${e}`}
-            try {
-                replaceInstrument(element, instrumentClass, instrumentConfig)
-            } catch (e) {
-            }
+        console.error(`cannot load instrument ${instrumentClassName}:`, e)
+        instrumentClass = errorClass
+        instrumentConfig = {"message": `${e}`}
+        try {
+            replaceInstrument(element, instrumentClass, instrumentConfig)
+        } catch (e) {
         }
     }
 }
@@ -81,24 +65,32 @@ const metrixUpdate = async (element = undefined) => {
     } else {
         elements = element.find(metrixInstrumentSelector)
     }
-    const elementsToUpdate = {}
+
+    const instrumentClasses = {}
+    const elementsToUpdate = []
     elements.each(function () {
         const element = $(this)
-        const instrumentClass = element.attr("data-metrix-instrument")
-        if (!(instrumentClass in elementsToUpdate)) {
-            elementsToUpdate[instrumentClass] = []
+        var config
+        try {
+            config = collectInstrumentConfig(element)
+        } catch (e) {
+            config = {"instrument": "error", "message": `${e}`}
         }
-        elementsToUpdate[instrumentClass].push(element)
+        const instrumentClass = config.instrument
+
+        if (!(instrumentClass in instrumentClasses)) {
+            instrumentClasses[instrumentClass] = true
+        }
+        elementsToUpdate.push({"element": element, "config": config, "instrumentClass": instrumentClass})
     })
 
+    instrumentClasses.error = true
     
-    const classes = await loadInstrumentClasses(Object.keys(elementsToUpdate))
+    const classes = await loadInstrumentClasses(Object.keys(instrumentClasses))
 
-    for (var cls in elementsToUpdate) {
-        const instrumentClass = classes[cls]
-        for (var element of elementsToUpdate[cls]) {
-            await updateInstrument(instrumentClass, element, cls)
-        }
+    for (var elementToUpdate of elementsToUpdate) {
+        const instrumentClass = classes[elementToUpdate.instrumentClass]
+        updateInstrument(elementToUpdate.element, instrumentClass, elementToUpdate.config, classes.error)
     }
 }
 
