@@ -3,6 +3,7 @@
  */
 
 import TestDataSource from "./data-source/test.js"
+import dataSourceDispatcher from "./data-source-dispatcher.js"
 
 const dataSourceMap = {
     test: TestDataSource,
@@ -19,7 +20,12 @@ const getDataSource = (uri) => {
                 throw `proto ${proto} not registered`
             }
             const cls = dataSourceMap[proto]
-            dataSources[uri] = new cls(uri)
+            var instance = null
+            instance = new cls(
+                uri,
+                message => setTimeout(() => dataSourceDispatcher.dispatchFromDataSource(instance, message), 0)
+            )
+            dataSources[uri] = instance
         } catch (e) {
             console.error(`data source with uri '${uri}' cannot be created`, e)
             return null

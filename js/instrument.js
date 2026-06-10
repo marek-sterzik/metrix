@@ -33,25 +33,13 @@ class Instrument
 
     isDataSourceConfigured()
     {
-        try {
-            ["source", "topic"].forEach(key => {
-                if (!(key in this.configuration)) {
-                    throw "missing key" 
-                }
-                if (typeof this.configuration[key] !== "string") {
-                    throw "not a string"
-                }
-            })
-            return true
-        } catch (e) {
-            return false
-        }
+        return this.config("source") !== null
     }
 
     registerDataSource()
     {
         if (this.isDataSourceConfigured()) {
-            dataSourceDispatcher.registerInstrument(this, this.configuration['source'], this.configuration['topic'])
+            dataSourceDispatcher.registerInstrument(this, this.config("source"), this.config("topic"))
         }
     }
 
@@ -105,8 +93,8 @@ class Instrument
         return this
     }
 
-    config = createSetterGetter(null, key => this.configuration[key])
-    data = createSetterGetter((key, value) => (this.data[key] = value), key => this.data[key])
+    config = createSetterGetter(null, key => (key in this.configuration) ? this.configuration[key] : null)
+    data = createSetterGetter((key, value) => (this.data[key] = value), key => (key in this.data) ? this.data[key] : null)
 }
 
 export default Instrument

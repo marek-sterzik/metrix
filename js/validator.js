@@ -1,5 +1,5 @@
 
-import Ajv from "ajv"
+import Ajv from "ajv/dist/2020.js"
 
 const ajv = new Ajv()
 

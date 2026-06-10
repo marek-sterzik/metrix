@@ -2,36 +2,34 @@
  * This module sets up an easy random generating data source.
  */
 
+import Message from "@metrix/message.js"
+
 class TestDataSource
 {
-    constructor(uri)
+    constructor(uri, dispatcher)
     {
         this.uri = uri
-        this.sources = {}
+        this.dispatcher = dispatcher
+        this.topics = {}
+        this.interval = setInterval(() => this.tick(), 1000)
     }
 
-    startProvidingData(topic, consummer)
+    send(message)
     {
-        this.sources[topic] = setInterval(() => this.tick(topic, consummer), 1000)
+        if (message.is("@query")) {
+            this.topics[message.topic] = true
+            this.dispatcher(new Message("broadcast", message.topic, this.generateValue()))
+        }
     }
 
-    stopProvidingData(topic)
+    tick()
     {
-        clearInterval(this.sources[topic])
-        delete(this.sources[topic])
+        for (var topic in this.topics) {
+            this.dispatcher(new Message("broadcast", topic, this.generateValue()))
+        }
     }
 
-    send(topic, value)
-    {
-    }
-
-    tick(topic, consummer)
-    {
-        const value = this.generateValueFor(topic)
-        consummer(topic, value)
-    }
-
-    generateValueFor(topic)
+    generateValue()
     {
         return Math.random() * 100
     }
