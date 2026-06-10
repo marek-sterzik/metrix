@@ -10,28 +10,28 @@ class TestDataSource
         this.sources = {}
     }
 
-    startProvidingData(id, consummer)
+    startProvidingData(topic, consummer)
     {
-        this.sources[id] = setInterval(() => this.tick(id, consummer), 1000)
+        this.sources[topic] = setInterval(() => this.tick(topic, consummer), 1000)
     }
 
-    stopProvidingData(id)
+    stopProvidingData(topic)
     {
-        clearInterval(this.sources[id])
-        delete(this.sources[id])
+        clearInterval(this.sources[topic])
+        delete(this.sources[topic])
     }
 
-    send(id, value)
+    send(topic, value)
     {
     }
 
-    tick(id, consummer)
+    tick(topic, consummer)
     {
-        const value = this.generateValueFor(id)
-        consummer(id, value)
+        const value = this.generateValueFor(topic)
+        consummer(topic, value)
     }
 
-    generateValueFor(id)
+    generateValueFor(topic)
     {
         return Math.random() * 100
     }

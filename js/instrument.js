@@ -34,7 +34,7 @@ class Instrument
     isDataSourceConfigured()
     {
         try {
-            ["source", "id"].forEach(key =>{
+            ["source", "topic"].forEach(key => {
                 if (!(key in this.configuration)) {
                     throw "missing key" 
                 }
@@ -51,7 +51,7 @@ class Instrument
     registerDataSource()
     {
         if (this.isDataSourceConfigured()) {
-            dataSourceDispatcher.registerInstrument(this, this.configuration['source'], this.configuration['id'])
+            dataSourceDispatcher.registerInstrument(this, this.configuration['source'], this.configuration['topic'])
         }
     }
 

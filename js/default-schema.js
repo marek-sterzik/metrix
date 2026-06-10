@@ -6,10 +6,10 @@
 const defaultSchema = {
     type: "object",
     properties: {
-        "id": {type: "string"},
+        "topic": {type: "string"},
         "source": {type: "string"},
     },
-    required: ["id", "source"]
+    required: ["topic", "source"]
 }
 
 export default defaultSchema
