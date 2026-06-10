@@ -2,8 +2,8 @@
 {% block body %}
     <div  class="metrix-dashboard" data-metrix-preset="source: 'ws://localhost'">
         <h1>Toto bude METRIX</h1>
-        <div data-metrix-instrument="test" data-metrix-config="id: test"></div>
-        <div data-metrix-instrument="analog-meter" data-metrix-config="id: analog"></div>
-        <div data-metrix-instrument="unknown"></div>
+        <div data-metrix-config="instrument: test, id: test"></div>
+        <div data-metrix-config="instrument: analog-meter, id: analog"></div>
+        <div data-metrix-config="instrument: unknown"></div>
     </div>
 {% endblock %}
