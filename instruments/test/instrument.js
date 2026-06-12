@@ -7,6 +7,7 @@ function initialize(element)
 function setValue(value, instrument)
 {
     console.log("setValue")
+    console.log("hello world")
 }
 
 function destroy(instrument)
