@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="200"
+   height="130"
+   viewBox="0 0 200 130"
+   version="1.1"
+   id="svg13"
+   sodipodi:docname="digital-meter.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs17">
+    <rect
+       x="31.910828"
+       y="9.7452229"
+       width="24.267516"
+       height="13.184713"
+       id="rect27604" />
+    <linearGradient
+       id="linearGradient27390"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop27388" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient25195"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop25193" />
+    </linearGradient>
+    <rect
+       x="12.802548"
+       y="6.6878981"
+       width="48.152866"
+       height="7.2611469"
+       id="rect24771" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter18347"
+       x="-0.0071674998"
+       y="-0.019113333"
+       width="1.014335"
+       height="1.0382267">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.2695"
+         id="feGaussianBlur18349" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter18351"
+       x="-0.0100862"
+       y="-0.015517231"
+       width="1.0201724"
+       height="1.0310345">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.42385"
+         id="feGaussianBlur18353" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter18355"
+       x="-0.0036860779"
+       y="-0.014525384"
+       width="1.0073721"
+       height="1.0290508">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.1464832"
+         id="feGaussianBlur18357" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter18359"
+       x="-0.0045944808"
+       y="-0.008164357"
+       width="1.009189"
+       height="1.0163287">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.046522485"
+         id="feGaussianBlur18361" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter27922"
+       x="-0.21335819"
+       y="-1.6238107"
+       width="1.4267164"
+       height="4.2476214">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.4248283e-06"
+         id="feGaussianBlur27924" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview15"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:lockguides="true"
+     inkscape:zoom="2.56"
+     inkscape:cx="80.078125"
+     inkscape:cy="82.617188"
+     inkscape:window-width="1920"
+     inkscape:window-height="995"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg13" />
+  <rect
+     x="0"
+     y="0"
+     width="200"
+     height="130"
+     fill="none"
+     stroke="black"
+     stroke-width="2"
+     id="rect2"
+     style="mix-blend-mode:normal;fill:#500000;fill-opacity:1;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter18351)" />
+  <rect
+     x="19.999992"
+     y="35"
+     width="160"
+     height="60"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect6"
+     style="mix-blend-mode:normal;fill:#000000;fill-opacity:1;stroke-linecap:round;stroke-linejoin:round;paint-order:normal;filter:url(#filter18347)" />
+  <text
+     id="meter-value"
+     x="136.20833"
+     y="72.227432"
+     font-size="32px"
+     font-weight="bold"
+     text-anchor="end"
+     fill="#000000"
+     style="white-space:pre;inline-size:102.255;display:inline;mix-blend-mode:normal;fill:#ffffff;fill-opacity:1;filter:url(#filter18355)"
+     transform="matrix(0.90242315,0,0,1.1161127,-4.6214429,-4.0589518)"
+     xml:space="preserve"><tspan
+       x="136.20833"
+       y="72.227432"
+       id="tspan31728">120.5</tspan></text>
+  <text
+     x="145"
+     y="80"
+     font-size="18px"
+     font-weight="bold"
+     text-anchor="start"
+     fill="black"
+     id="text9"
+     style="white-space:pre;inline-size:28.1234;display:inline;fill:#ffffff;fill-opacity:1;filter:url(#filter18359);-inkscape-font-specification:'sans-serif, Bold';font-family:sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:18px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+     transform="translate(4.1808735,-2.6585306)"
+     xml:space="preserve"><tspan
+       x="145"
+       y="80"
+       id="tspan31730">kV</tspan></text>
+  <text
+     xml:space="preserve"
+     id="text24769"
+     style="white-space:pre;shape-inside:url(#rect24771);display:inline;fill:#0091dd;fill-opacity:0.877193;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:0.397869px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:58.2547;display:inline;mix-blend-mode:normal;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.0198675;paint-order:normal;filter:url(#filter27922)"
+     x="32.292995"
+     y="9.5541401"
+     id="text24827"
+     transform="matrix(22.638666,0,0,24.655726,-710.54653,-220.85475)"><tspan
+       x="32.292995"
+       y="9.5541401"
+       id="tspan31734"><tspan
+         style="baseline-shift:sub;opacity:1"
+         id="tspan31732">Volt Meter</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     id="text27602"
+     style="white-space:pre;shape-inside:url(#rect27604);display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"><tspan
+       x="31.910156"
+       y="33.546875"
+       id="tspan31736"></tspan></text>
+</svg>
