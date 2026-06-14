@@ -1,0 +1,109 @@
+.metrix-instrument-switch {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background: transparent; 
+    border: none;
+    box-shadow: none;
+
+    .switch-hardware-case {
+        position: relative;
+        width: 120px;
+        height: 200px;
+        background: linear-gradient(135deg, #18223d 0%, #0b101d 100%);
+        border: 2px solid #1f2d52;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        overflow: hidden;
+        cursor: pointer;
+        display: block; 
+    }
+
+    .switch-hardware-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .hardware-led {
+        position: absolute;
+        top: 14px; left: 50%;
+        transform: translateX(-50%);
+        width: 8px; height: 8px;
+        background-color: #3a0012;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .mechanism-slot {
+        position: absolute;
+        top: 35px; left: 35px;
+        width: 50px; height: 140px;
+        background: #05070f;
+        border-radius: 25px;
+        box-shadow: inset 0 8px 16px rgba(0,0,0,0.85);
+    }
+
+    .switch-lever-assembly {
+        position: absolute;
+        width: 100%; height: 100%;
+        transform-origin: 25px 105px;
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        
+        &::after {
+            content: '';
+            position: absolute;
+            top: 85px; left: 5px;
+            width: 40px; height: 40px;
+            background: #1e293b;
+            border: 2px solid #475569;
+            border-radius: 50%;
+            z-index: 3;
+        }
+    }
+
+    .lever-shaft {
+        position: absolute;
+        top: 40px; left: 19px;
+        width: 12px; height: 60px;
+        background: linear-gradient(90deg, #475569 0%, #94a3b8 50%, #334155 100%);
+        z-index: 2;
+    }
+
+    .lever-head {
+        position: absolute;
+        top: 20px; left: 5px;
+        width: 40px; height: 40px;
+        background: radial-gradient(circle at 40% 40%, #ef4444 0%, #991b1b 70%, #450a0a 100%);
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        z-index: 4;
+    }
+
+    .switch-hardware-input:not(:checked) ~ .mechanism-slot .switch-lever-assembly {
+        transform: rotate(-25deg);
+    }
+
+    .switch-hardware-input:checked {
+        ~ .mechanism-slot .switch-lever-assembly {
+            transform: rotate(25deg); 
+            
+            .lever-shaft {
+                background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #0369a1 100%);
+            }
+
+            .lever-head {
+                background: radial-gradient(circle at 40% 40%, #00f0ff 0%, #0369a1 70%, #0c1d33 100%);
+            }
+        }
+        
+        ~ .hardware-led {
+            background-color: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff, 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+    }
+}
