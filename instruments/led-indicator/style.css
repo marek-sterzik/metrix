@@ -1,0 +1,27 @@
+.metrix-instrument-led-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.led-indicator {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.led {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #222;
+    box-shadow: inset 0 0 4px #000;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.led.on {
+    background-color: #00ff66;
+    box-shadow: 0 0 6px #00ff66, 0 0 12px rgba(0, 255, 102, 0.6);
+}
